@@ -44,8 +44,33 @@ It is difficult to achieve high usability because there are still people who can
 \begin{multicols*}{2}
 
 \section{はじめに}
+\subsection{背景}
+通信インフラへの投資が、モバイル通信システムの新しい世代の普及率に影響を及ぼしていることが指摘されている~\cite{Forge2020FormingA5GStrategyForDevelopingCountries}。通信インフラはモバイル通信サービスやオンラインサービスの基礎であるため、国々の間で激しい競争が行われているが、経済規模の違いから発展途上国や地方自治体は投資される側において不利である。膨大な予算を確保しやすい先進国や中央自治体の方がより魅力的な投資政策を立てられるためである。
 
-\begin{thebibliography}{99}
+他方で、通信システムを整備する組織の1つであるMNO(Mobile Network Operator)は、既にある通信設備の維持をしながら新しいモバイルネットワーク技術に多額の資金を投資する必要があるため、ある程度のリスクを抱えており、政府からの支援によって投資への積極性が左右されやすい。最近ではオンラインサービスを運営するMNOも登場しており、市場規模が拡大するにつれて明確な投資判断を下すために考慮するべき要素がますます増えている。
+
+モバイル通信システムの世代が新しくなるにつれ、モバイル通信技術を導入するための費用が増加する傾向にある。例えば、モバイル通信システムの世代が新しいほど使用する周波数帯が高くなる傾向にあるが、これは1つの基地局が対応できる通信範囲が狭くなることを意味する。これにより、特定のカバレッジを確保する場合にかかる基地局などの設備費用が増加する。
+
+通信技術の開発や通信インフラの整備状況は様々な要因の影響を受ける。これらの要因により十分な通信環境が確保できない地域に対してもユーザビリティーが高いサービスを提供することが必要である。特に、モバイル端末は安価である一方で、利用時には移動体通信が行われるため通信環境が変化しやすく、一定のユーザビリティーを確保することが難しい。このような問題を解決するために提案されている技術がPWA(Progressive Web Apps)である。
+
+PWAはモバイルネイティブアプリに代表される、プラットフォーム固有のアプリのユーザビリティーを提供するWebの技術である。通常のWebアプリでは柔軟なキャッシュ管理ができないため、Webページの読み込み速度をキャッシュレベルで改善するための仕組みが複雑である。また、常にオンラインでアクセスする必要があるため、通信環境の地理的な制約を受けることがある。PWAを活用することでこれらの問題を解決できる。
+
+屋外の位置情報に関連する市場の規模は、国内では2025年度までに約1,900億円に拡大すると予想されている~\cite{MIC2023InformationStatistics}。位置情報は、地図、カーナビゲーション、マーケティング、タクシーの配車、ゲーム、家族や友人と位置情報を共有するアプリなどで活用されている。これらのサービスによって位置情報技術の認知度がより向上し、その認知度の高まりが位置情報市場の拡大を支えていると考えられる。
+\subsection{目的}
+現在配信されている観光案内アプリに実装されている機能を調査し、観光案内アプリにPWAを導入する際の機能面の課題を明らかにする。関連研究で行われていたアプリのパフォーマンスの評価方法の問題点を指摘し、アプリのパフォーマンスをより正確に計測するための方法を示す。その方法を用いて、Service Workerのキャッシュ戦略を活用した場合の観光案内アプリのパフォーマンスを計測し、その戦略がどの程度効果的であるのかを示す。新たに提案したパフォーマンスの計測方法を用いてパフォーマンスを評価した場合に生じる問題点を指摘し、どのような改善が求められるのかを示す。
+\section{関連研究}
+App Shellはコンテンツを積極的にキャッシュして利用できるようにすることで、Webアプリのパフォーマンスを向上させたり、操作性を改善したりする。Service Workerはネットワークリクエストを制御することでオフラインアクセス、プッシュ通知、バックグラウンドでの更新などのネイティブアプリ固有の機能を提供する。Web Application ManifestはWebアプリのメタデータを提供することでWEbアプリとネイティブプラットフォームとの統合を実現する。\cite{Tandel2018ProgressiveWebApps}。
+
+Redditから画像とテキストを取得して表示する機能を、PWAとAndroidのネイティブアプリに実装し、アプリの最初のアクティビティが起動するまでの時間や、アプリのアイコンをタップしてからツールバーがレンダリングされるまでの時間を計測した研究がある~\cite{Andreas2018ProgressiveWebApps}。アプリの最初のアクティビティが起動するまでの時間を計測する際は、Android Debug Bridgeのam\_activity\_launch\_timeコマンドを使用しており、アプリのアイコンをタップしてからツールバーがレンダリングされるための時間を計測する際は、それぞれのアプリで10回操作を行い、その時間を手動で計測して平均時間を計算している。
+
+現在のクロスプラットフォームフレームワークはプラットフォーム間で技術を統一できない~\cite{Majchrzak2018ProgressiveWebApps}。関連研究では、この問題を解決するための方法の1つとしてPWAを挙げている。PWAは単一のコードで複数のプラットフォームに対応できる点で他のクロスプラットフォームフレームワークとは異なる。PWAのようなクロスプラットフォームフレームワークの登場により学習工数やコストが削減され、市場投入までの時間が短縮される。
+
+\begin{thebibliography}{9}
+\bibitem{Forge2020FormingA5GStrategyForDevelopingCountries} S．Forge and K．Vu．Forming a 5g strategy for developing countries: A note for policy makers．\textit{Telecommunications Policy}，Vol，44，No．7，2020．
+\bibitem{MIC2023InformationStatistics} 総務省．情報通信白書令和5年版．\url{https://www.soumu.go.jp/johotsusintokei/whitepaper/r05.html}
+\bibitem{Tandel2018ProgressiveWebApps} S．S．Tandel and A．Jamadar．Impact of progressive web apps on web app development．\textit{International Journal of Innovative Research in Science，Engineering and Technology}，pp．9439–9444，September 2018．
+\bibitem{Andreas2018ProgressiveWebApps} A．Biørn-Hansen，et al．Progressive web apps for the unified development of mobile applications．In \textit{Web Information Systems and Technologies}，pp．64–86，Cham，2018．Springer International Publishing
+\bibitem{Majchrzak2018ProgressiveWebApps} T．A．Majchrzak，et al．Progressive web apps: the definite approach to cross-platform development? In \textit{Hawaii International Conference on System Sciences}，pp．5735–5744．IEEE Computer Society，January 2018．
 \end{thebibliography}
 \end{multicols*} 
 \end{document}
