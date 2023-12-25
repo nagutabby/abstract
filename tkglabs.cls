@@ -173,3 +173,8 @@
 %%%% 表で使える太い線
 \newcommand{\Hline}{\noalign{\hrule height .8pt}} % 太い横線の定義
 % ここまで ------------------------------------------------------------------
+
+\urlstyle{same}
+\usepackage{newunicodechar}
+\newunicodechar{、}{，}
+\newunicodechar{。}{．}
